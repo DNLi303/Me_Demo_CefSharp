@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.XPath;
 using CefSharp;
 using CefSharp.WinForms;
+
 using Microsoft.CSharp;
 
 namespace Me_Demo_CefSharp
@@ -32,7 +35,8 @@ namespace Me_Demo_CefSharp
         private void button1_Click(object sender, EventArgs e)
         {
             string url = "http://websocket.yuanmacloud.com/add.html";
-            url = "http://www.baidu.com";
+            url = "http://www.yuanmacloud.com";
+
             webbrowser = new ChromiumWebBrowser(url)
             {
                 Dock = DockStyle.Fill
@@ -47,6 +51,8 @@ namespace Me_Demo_CefSharp
             webbrowser.LoadingStateChanged += Webbrowser_LoadingStateChanged;
             //控制台消息管理
             webbrowser.ConsoleMessage += Webbrowser_ConsoleMessage;
+
+
 
             //绑定后台的属性和方法,类的方法名为小写字符开头
             webbrowser.RegisterJsObject("bod", new BoundObject());
@@ -82,6 +88,7 @@ namespace Me_Demo_CefSharp
         private void Webbrowser_FrameLoadEnd(object sender, CefSharp.FrameLoadEndEventArgs e)
         {
 
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -99,6 +106,21 @@ namespace Me_Demo_CefSharp
         {
             var websources = await webbrowser.GetSourceAsync();
             this.textBox3.Text = websources;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Bitmap iBitmap = new Bitmap(100, 100);
+            webbrowser.DrawToBitmap(iBitmap, this.panel1.ClientRectangle);
+
+
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            
+            //NSoup.NSoupClient.Parse()
         }
     }
 }
